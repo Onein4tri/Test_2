@@ -91,13 +91,15 @@
           },
           {
             "Type": "DynamicGraph",
-            "Name": "dynamicGraph1",
+            "Name": "sineGraph",
+            "X": 3,
             "Y": 1,
             "Width": 427,
             "Height": 270,
             "DataSeed": -359582300,
             "NumberOfValues": 100,
-            "MaxY": 3500.0,
+            "MaxY": 100.0,
+            "MinY": -100.0,
             "Precision": "1",
             "LastIndex": 99,
             "XAxisScale": 1.0,
@@ -114,9 +116,9 @@
                 "LineWidth": 2,
                 "FileNameImage": "",
                 "Color": {
-                  "Red": 20,
-                  "Green": 151,
-                  "Blue": 197
+                  "Red": 196,
+                  "Green": 59,
+                  "Blue": 22
                 }
               }
             ],

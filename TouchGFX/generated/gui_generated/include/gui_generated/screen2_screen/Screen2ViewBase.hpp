@@ -32,13 +32,13 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image image1;
-    touchgfx::GraphScroll<100> dynamicGraph1;
-    touchgfx::GraphElementGridX dynamicGraph1MajorXAxisGrid;
-    touchgfx::GraphElementGridY dynamicGraph1MajorYAxisGrid;
-    touchgfx::GraphLabelsX dynamicGraph1MajorXAxisLabel;
-    touchgfx::GraphLabelsY dynamicGraph1MajorYAxisLabel;
-    touchgfx::GraphElementLine dynamicGraph1Line1;
-    touchgfx::PainterRGB888 dynamicGraph1Line1Painter;
+    touchgfx::GraphScroll<100> sineGraph;
+    touchgfx::GraphElementGridX sineGraphMajorXAxisGrid;
+    touchgfx::GraphElementGridY sineGraphMajorYAxisGrid;
+    touchgfx::GraphLabelsX sineGraphMajorXAxisLabel;
+    touchgfx::GraphLabelsY sineGraphMajorYAxisLabel;
+    touchgfx::GraphElementLine sineGraphLine1;
+    touchgfx::PainterRGB888 sineGraphLine1Painter;
     touchgfx::IconButtonStyle< touchgfx::BoxWithBorderButtonStyle< touchgfx::ClickButtonTrigger >  >  flexButton1;
 
 private:
