@@ -1,6 +1,7 @@
-C:/TouchGFXProjects/Test_2/Core/Src/main.c:642:6:StartDefaultTask	1
-C:/TouchGFXProjects/Test_2/Core/Src/main.c:218:6:SystemClock_Config	2
-C:/TouchGFXProjects/Test_2/Core/Src/main.c:271:6:PeriphCommonClock_Config	1
-C:/TouchGFXProjects/Test_2/Core/Src/main.c:109:5:main	5
-C:/TouchGFXProjects/Test_2/Core/Src/main.c:731:6:HAL_TIM_PeriodElapsedCallback	2
-C:/TouchGFXProjects/Test_2/Core/Src/main.c:748:6:Error_Handler	1
+C:/TouchGFXProjects/Test_2/Core/Src/main.c:231:6:SystemClock_Config	2
+C:/TouchGFXProjects/Test_2/Core/Src/main.c:284:6:PeriphCommonClock_Config	1
+C:/TouchGFXProjects/Test_2/Core/Src/main.c:121:5:main	5
+C:/TouchGFXProjects/Test_2/Core/Src/main.c:728:6:ReadPressureData	3
+C:/TouchGFXProjects/Test_2/Core/Src/main.c:773:6:StartDefaultTask	1
+C:/TouchGFXProjects/Test_2/Core/Src/main.c:881:6:HAL_TIM_PeriodElapsedCallback	2
+C:/TouchGFXProjects/Test_2/Core/Src/main.c:898:6:Error_Handler	1

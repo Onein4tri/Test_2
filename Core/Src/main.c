@@ -22,11 +22,13 @@
 #include "cmsis_os.h"
 #include "libjpeg.h"
 #include "app_touchgfx.h"
-
+#include "../../../../STM32CubeIDE/Application/User/Core/PressureSensor.hpp"
+#include <string.h>
+#include <stdio.h>
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stm32h735g_discovery_ospi.h"
-#include "stm32h7xx_hal_ospi.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -36,6 +38,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -49,6 +52,8 @@ CRC_HandleTypeDef hcrc;
 
 DMA2D_HandleTypeDef hdma2d;
 
+I2C_HandleTypeDef hi2c4;
+
 LTDC_HandleTypeDef hltdc;
 
 OSPI_HandleTypeDef hospi1;
@@ -56,6 +61,9 @@ OSPI_HandleTypeDef hospi2;
 
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
+
+uint8_t data_buffer[4];         // Buffer for I2C sensor data
+
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
   .stack_size = 128 * 4,
@@ -89,11 +97,15 @@ static void MX_DMA2D_Init(void);
 static void MX_LTDC_Init(void);
 static void MX_OCTOSPI1_Init(void);
 static void MX_OCTOSPI2_Init(void);
+static void MX_I2C4_Init(void);
 void StartDefaultTask(void *argument);
 extern void TouchGFX_Task(void *argument);
 extern void videoTaskFunc(void *argument);
 
+
 /* USER CODE BEGIN PFP */
+static uint8_t screenOn = 1; // 1 = Screen on, 0 = Screen off
+uint8_t data_buffer[4];
 
 /* USER CODE END PFP */
 
@@ -151,6 +163,7 @@ int main(void)
   MX_OCTOSPI1_Init();
   MX_OCTOSPI2_Init();
   MX_LIBJPEG_Init();
+  MX_I2C4_Init();
   MX_TouchGFX_Init();
   /* Call PreOsInit function */
   MX_TouchGFX_PreOSInit();
@@ -303,6 +316,13 @@ static void MX_CRC_Init(void)
   /* USER CODE END CRC_Init 0 */
 
   /* USER CODE BEGIN CRC_Init 1 */
+	void EXTI15_10_IRQHandler(void) {
+	    if (__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_13) != RESET) {  // Check if EXTI triggered for PC13
+	        __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_13);           // Clear the interrupt flag
+
+	        toggleScreen();  // Call the toggle function
+	    }
+	}
 
   /* USER CODE END CRC_Init 1 */
   hcrc.Instance = CRC;
@@ -347,6 +367,54 @@ static void MX_DMA2D_Init(void)
   /* USER CODE BEGIN DMA2D_Init 2 */
 
   /* USER CODE END DMA2D_Init 2 */
+
+}
+
+/**
+  * @brief I2C4 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_I2C4_Init(void)
+{
+
+  /* USER CODE BEGIN I2C4_Init 0 */
+
+  /* USER CODE END I2C4_Init 0 */
+
+  /* USER CODE BEGIN I2C4_Init 1 */
+
+  /* USER CODE END I2C4_Init 1 */
+  hi2c4.Instance = I2C4;
+  hi2c4.Init.Timing = 0x00000509;
+  hi2c4.Init.OwnAddress1 = 0;
+  hi2c4.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c4.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c4.Init.OwnAddress2 = 0;
+  hi2c4.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
+  hi2c4.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c4.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  if (HAL_I2C_Init(&hi2c4) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Configure Analogue filter
+  */
+  if (HAL_I2CEx_ConfigAnalogFilter(&hi2c4, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Configure Digital filter
+  */
+  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c4, 0) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN I2C4_Init 2 */
+
+  /* USER CODE END I2C4_Init 2 */
 
 }
 
@@ -573,8 +641,8 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOE_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOF_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
@@ -587,7 +655,16 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(LCD_DISP_GPIO_Port, LCD_DISP_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(VSYNC_FREQ_GPIO_Port, VSYNC_FREQ_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : PC13 */
+  GPIO_InitStruct.Pin = GPIO_PIN_13;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pin : LCD_BL_CTRL_Pin */
   GPIO_InitStruct.Pin = LCD_BL_CTRL_Pin;
@@ -617,6 +694,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LCD_DISP_GPIO_Port, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : PC2 */
+  GPIO_InitStruct.Pin = GPIO_PIN_2;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
   /*Configure GPIO pin : VSYNC_FREQ_Pin */
   GPIO_InitStruct.Pin = VSYNC_FREQ_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -625,10 +709,57 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(VSYNC_FREQ_GPIO_Port, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
+  // Configure GPIO pin for Button B2
+
+  GPIO_InitStruct.Pin = GPIO_PIN_13;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  // Enable and set EXTI Line interrupt priority
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 2, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
+
+// This function reads data from the pressure sensor over I2C
+void ReadPressureData(uint16_t *pressure)
+{
+
+  uint8_t slave_address = 0x18 << 1;  // Shift left for 7-bit addressing mode
+    uint8_t data_to_send[3] = {0xAA, 0x00,0x00};  // Data to send
+
+    // Transmit data to the I2C slave
+    if (HAL_I2C_Master_Transmit(&hi2c4, slave_address, data_to_send, sizeof(data_to_send), HAL_MAX_DELAY) == HAL_OK)
+    {
+        // Transmission successful
+        printf("Data transmitted successfully.\n");
+    }
+    vTaskDelay(20);
+    uint8_t data_buffer[4]; // Buffer for sensor data (1 status byte + 3 data bytes)
+
+    if (HAL_I2C_Master_Receive(&hi2c4, 0x18 << 1, data_buffer, sizeof(data_buffer), HAL_MAX_DELAY) == HAL_OK)
+    {
+        if ((data_buffer[0] & 0x20) == 0)
+        {
+            *pressure = (data_buffer[1] << 16) | (data_buffer[2] << 8) | data_buffer[3];
+            
+//            // Toggle LED based on pressure range
+//            if (*pressure > 2000) // Example threshold
+//            {
+//                HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_2);
+//            }
+//            else
+//            {
+//                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2, GPIO_PIN_RESET); // Turn off LED if below threshold
+//            }
+        }
+    }
+}
+
+
 
 /* USER CODE END 4 */
 
@@ -642,10 +773,29 @@ static void MX_GPIO_Init(void)
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
+
+	uint16_t pressure_value;  // Variable to store converted pressure data
+
+
+
   /* Infinite loop */
   for(;;)
   {
-    osDelay(100);
+//    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_2);
+//    osDelay(1000);
+
+ //   HAL_I2C_Master_Receive( &hi2c4, 0x18 << 1, data_buffer, 4, HAL_MAX_DELAY);
+
+	  // Call the function to read pressure data
+	          ReadPressureData(&pressure_value);
+
+	          // Print or use the pressure value as needed
+//	          printf("Pressure: %d\n", pressure_value);
+
+	          // Delay between reads (e.g., 100 ms for real-time reading)
+	          osDelay(100);
+
+
   }
   /* USER CODE END 5 */
 }
