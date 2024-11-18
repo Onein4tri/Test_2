@@ -15,12 +15,15 @@ public:
     virtual void setupScreen();
     virtual void tearDownScreen();
     virtual void handleTickEvent();
-    void updatePressureGraph();  // Now without arguments
+    void updatePressureGraph();
+
 
 private:
         int tickCounter;    // Tracks the update interval
         float angle;        // Current angle for the sine wave
-        int pressureValue;        // Store the pressure data here
+
+
+
 protected:
 };
 

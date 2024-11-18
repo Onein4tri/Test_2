@@ -18,7 +18,7 @@
 extern "C" {
 #endif
 
-void ReadPressureData(uint16_t *pressure);
+void ReadPressureData(void);
 
 #ifdef __cplusplus
 }

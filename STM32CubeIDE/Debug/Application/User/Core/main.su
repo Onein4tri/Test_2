@@ -1,7 +1,10 @@
-C:/TouchGFXProjects/Test_2/Core/Src/main.c:231:6:SystemClock_Config	120	static
-C:/TouchGFXProjects/Test_2/Core/Src/main.c:284:6:PeriphCommonClock_Config	192	static
-C:/TouchGFXProjects/Test_2/Core/Src/main.c:121:5:main	144	static,ignoring_inline_asm
-C:/TouchGFXProjects/Test_2/Core/Src/main.c:728:6:ReadPressureData	24	static
-C:/TouchGFXProjects/Test_2/Core/Src/main.c:773:6:StartDefaultTask	16	static
-C:/TouchGFXProjects/Test_2/Core/Src/main.c:881:6:HAL_TIM_PeriodElapsedCallback	0	static
-C:/TouchGFXProjects/Test_2/Core/Src/main.c:898:6:Error_Handler	0	static
+C:/TouchGFXProjects/Test_2/Core/Src/main.c:835:6:StartDefaultTask	8	static
+C:/TouchGFXProjects/Test_2/Core/Src/main.c:259:6:SystemClock_Config	120	static
+C:/TouchGFXProjects/Test_2/Core/Src/main.c:312:6:PeriphCommonClock_Config	192	static
+C:/TouchGFXProjects/Test_2/Core/Src/main.c:146:5:main	144	static,ignoring_inline_asm
+C:/TouchGFXProjects/Test_2/Core/Src/main.c:789:6:ConvertToPressure	0	static
+C:/TouchGFXProjects/Test_2/Core/Src/main.c:756:6:ReadPressureData	24	static
+C:/TouchGFXProjects/Test_2/Core/Src/main.c:799:10:ScalePressureForDisplay	0	static
+C:/TouchGFXProjects/Test_2/Core/Src/main.c:807:6:StartPressureTask	8	static
+C:/TouchGFXProjects/Test_2/Core/Src/main.c:934:6:HAL_TIM_PeriodElapsedCallback	0	static
+C:/TouchGFXProjects/Test_2/Core/Src/main.c:951:6:Error_Handler	0	static

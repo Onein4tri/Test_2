@@ -62,7 +62,27 @@ OSPI_HandleTypeDef hospi2;
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
 
-uint8_t data_buffer[4];         // Buffer for I2C sensor data
+#define OUTPUT_MAX 15099494  // 90% of 24-bit max
+#define OUTPUT_MIN 1677722   // 10% of 24-bit max
+#define P_MAX 1.0            // Maximum pressure in psi (change as needed)
+#define P_MIN -1.0           // Minimum pressure in psi (change as needed)
+
+
+#define GRAPH_MAX_PIXEL 100   // Display y-axis range (0-100 pixels)
+#define MMHG_CONVERSION_FACTOR 51.715  // Conversion factor for psi to mmHg
+
+
+uint32_t pressure = 0;
+float calculated_pressure = 0.0;
+uint16_t scaled_pressure = 0;     // Scaled pressure for display
+
+// Definitions for PressureTask
+osThreadId_t pressureTaskHandle;
+const osThreadAttr_t pressureTask_attributes = {
+  .name = "pressureTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
 
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
@@ -84,6 +104,8 @@ const osThreadAttr_t videoTask_attributes = {
   .priority = (osPriority_t) osPriorityLow,
 };
 /* USER CODE BEGIN PV */
+// Constants based on sensor specifications
+
 
 /* USER CODE END PV */
 
@@ -98,14 +120,17 @@ static void MX_LTDC_Init(void);
 static void MX_OCTOSPI1_Init(void);
 static void MX_OCTOSPI2_Init(void);
 static void MX_I2C4_Init(void);
+void StartPressureTask(void *argument);
+void ConvertToPressure(uint32_t raw_output);
+uint16_t ScalePressureForDisplay(float pressure);
 void StartDefaultTask(void *argument);
 extern void TouchGFX_Task(void *argument);
 extern void videoTaskFunc(void *argument);
 
 
 /* USER CODE BEGIN PFP */
-static uint8_t screenOn = 1; // 1 = Screen on, 0 = Screen off
-uint8_t data_buffer[4];
+//static uint8_t screenOn = 1; // 1 = Screen on, 0 = Screen off
+
 
 /* USER CODE END PFP */
 
@@ -202,6 +227,9 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
+  // Create the Pressure Task
+  pressureTaskHandle = osThreadNew(StartPressureTask, NULL, &pressureTask_attributes);
+
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -694,7 +722,7 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LCD_DISP_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PC2 */
+  /*Configure GPIO pin : PC2 LED*/
   GPIO_InitStruct.Pin = GPIO_PIN_2;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -725,40 +753,74 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 
 // This function reads data from the pressure sensor over I2C
-void ReadPressureData(uint16_t *pressure)
+void ReadPressureData(void)
 {
 
-  uint8_t slave_address = 0x18 << 1;  // Shift left for 7-bit addressing mode
-    uint8_t data_to_send[3] = {0xAA, 0x00,0x00};  // Data to send
+	uint8_t slave_address = 0x18 << 1;  // Shift left for 7-bit addressing mode
+    uint8_t data_to_send[3] = {0xAA, 0x00,0x00};  // Data to send, to trigger a pressure reading
 
-    // Transmit data to the I2C slave
+    // Transmit data to the I2C slave, // Send the command to the sensor
     if (HAL_I2C_Master_Transmit(&hi2c4, slave_address, data_to_send, sizeof(data_to_send), HAL_MAX_DELAY) == HAL_OK)
     {
         // Transmission successful
         printf("Data transmitted successfully.\n");
     }
-    vTaskDelay(20);
-    uint8_t data_buffer[4]; // Buffer for sensor data (1 status byte + 3 data bytes)
 
-    if (HAL_I2C_Master_Receive(&hi2c4, 0x18 << 1, data_buffer, sizeof(data_buffer), HAL_MAX_DELAY) == HAL_OK)
+    // Wait for sensor to process the request (20 ms delay
+    vTaskDelay(20);
+    // Buffer to store the response from the sensor (status byte + 3 data bytes)
+    uint8_t data_buffer[4];
+
+    // Receive the response from the sensor
+    if (HAL_I2C_Master_Receive(&hi2c4, slave_address, data_buffer, sizeof(data_buffer), HAL_MAX_DELAY) == HAL_OK)
     {
+    	// Check if the busy flag is cleared in the status byte (Bit 5 is 0)
         if ((data_buffer[0] & 0x20) == 0)
         {
-            *pressure = (data_buffer[1] << 16) | (data_buffer[2] << 8) | data_buffer[3];
-            
-//            // Toggle LED based on pressure range
-//            if (*pressure > 2000) // Example threshold
-//            {
-//                HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_2);
-//            }
-//            else
-//            {
-//                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2, GPIO_PIN_RESET); // Turn off LED if below threshold
-//            }
+        	// Combine the data bytes into a 24-bit pressure value and store it in the global variable
+        	pressure =  (data_buffer[1] << 16) | (data_buffer[2] << 8) | data_buffer[3];
+        	ConvertToPressure(pressure);  // Convert raw data to pressure value
+
         }
     }
 }
 
+// Convert raw data to pressure in psi
+void ConvertToPressure(uint32_t raw_output) {
+    calculated_pressure = ((float)(raw_output - OUTPUT_MIN) / (OUTPUT_MAX - OUTPUT_MIN)) * (P_MAX - P_MIN) + P_MIN;
+}
+
+//// Convert pressure from psi to mmHg
+//float ConvertPressureToMMHg(float pressure_psi) {
+//    return pressure_psi * MMHG_CONVERSION_FACTOR;
+//}
+
+// Scale pressure for display on a 0-100 pixel graph
+uint16_t ScalePressureForDisplay(float pressure) {
+    float display_pressure = (pressure - P_MIN) / (P_MAX - P_MIN) * GRAPH_MAX_PIXEL;
+    return (uint16_t)display_pressure;
+
+}
+
+
+// Task to continuously read pressure data from the sensor
+void StartPressureTask(void *argument)
+{
+    for(;;)
+    {
+
+    	// Call the function to read pressure data and store in the global `pressure` variable
+    	ReadPressureData();  // Read raw pressure data into `pressure`
+
+    	ConvertToPressure(pressure);  // Convert raw data to psi
+    	// Convert calculated pressure to display scale
+    	scaled_pressure = ScalePressureForDisplay(calculated_pressure);  // Scale for display range
+
+
+        // Delay between readings (e.g., 100 ms)
+        osDelay(pdMS_TO_TICKS(100));
+    }
+}
 
 
 /* USER CODE END 4 */
@@ -774,20 +836,11 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
 
-	uint16_t pressure_value;  // Variable to store converted pressure data
-
-
-
   /* Infinite loop */
   for(;;)
   {
-//    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_2);
-//    osDelay(1000);
 
- //   HAL_I2C_Master_Receive( &hi2c4, 0x18 << 1, data_buffer, 4, HAL_MAX_DELAY);
-
-	  // Call the function to read pressure data
-	          ReadPressureData(&pressure_value);
+//	          ReadPressureData(&pressure_value);
 
 	          // Print or use the pressure value as needed
 //	          printf("Pressure: %d\n", pressure_value);

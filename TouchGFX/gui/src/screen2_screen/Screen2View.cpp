@@ -6,13 +6,12 @@
 #include "../../../../STM32CubeIDE/Application/User/Core/PressureSensor.hpp"
 
 
-
-// Declare the ReadPressureData function as extern
-extern void ReadPressureData(uint16_t *pressure);
-
+// Access the global pressure variable from main.c
+extern uint32_t scaled_pressure;
 
 
-Screen2View::Screen2View() : tickCounter(0), angle(0.0f)  // Initialize variables
+
+Screen2View::Screen2View() : tickCounter(0)  // Initialize variables
 {
 
 }
@@ -29,18 +28,19 @@ void Screen2View::tearDownScreen()
     Screen2ViewBase::tearDownScreen();
 }
 
+void Screen2View::updatePressureGraph()
+{
+	  sineGraph.addDataPoint(static_cast<int>(scaled_pressure)- 57);
+
+}
+
 void Screen2View::handleTickEvent()
 {
     tickCounter++;
 
     if (tickCounter % 2 == 0)  // Adjust frequency of update as needed
     {
-    	// Read the pressure data and add it to the graph
-    	ReadPressureData(reinterpret_cast<uint16_t*>(&pressureValue));
+    	updatePressureGraph();
 
-    	// Add the new data point to the graph
-    	sineGraph.addDataPoint(pressureValue);
-
-    	// (Optional) Update any labels if needed
     }
 }
