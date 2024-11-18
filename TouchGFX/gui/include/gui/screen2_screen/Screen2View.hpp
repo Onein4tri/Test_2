@@ -20,8 +20,6 @@ public:
 
 private:
         int tickCounter;    // Tracks the update interval
-        float angle;        // Current angle for the sine wave
-
 
 
 protected:

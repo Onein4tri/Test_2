@@ -184,6 +184,10 @@ void Screen2ViewBase::flexButtonCallbackHandler(const touchgfx::AbstractButtonCo
         //Interaction1
         //When flexButton1 clicked change screen to Screen1
         //Go to Screen1 with screen transition towards West
-        application().gotoScreen1ScreenSlideTransitionWest();
+        application().gotoScreen1ScreenSlideTransitionWest();
+        //Interaction2
+        //When flexButton1 clicked call virtual function
+        //Call function1
+        function1();
     }
 }

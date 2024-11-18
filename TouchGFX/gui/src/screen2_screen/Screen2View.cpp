@@ -44,3 +44,4 @@ void Screen2View::handleTickEvent()
 
     }
 }
+

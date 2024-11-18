@@ -205,6 +205,17 @@
               "ScreenTransitionDirection": "West",
               "ActionComponent": "Screen1"
             }
+          },
+          {
+            "InteractionName": "Interaction2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "flexButton1"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "function1"
+            }
           }
         ]
       }

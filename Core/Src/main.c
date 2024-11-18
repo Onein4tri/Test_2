@@ -72,9 +72,12 @@ osThreadId_t defaultTaskHandle;
 #define MMHG_CONVERSION_FACTOR 51.715  // Conversion factor for psi to mmHg
 
 
-uint32_t pressure = 0;
+int32_t pressure = 0;
 float calculated_pressure = 0.0;
 uint16_t scaled_pressure = 0;     // Scaled pressure for display
+// Global variable for scaled pressure
+float pressure_mmhg = 0.0; // Add a global or local variable for mmHg
+
 
 // Definitions for PressureTask
 osThreadId_t pressureTaskHandle;
@@ -121,7 +124,7 @@ static void MX_OCTOSPI1_Init(void);
 static void MX_OCTOSPI2_Init(void);
 static void MX_I2C4_Init(void);
 void StartPressureTask(void *argument);
-void ConvertToPressure(uint32_t raw_output);
+void ConvertToPressure(int32_t raw_output);
 uint16_t ScalePressureForDisplay(float pressure);
 void StartDefaultTask(void *argument);
 extern void TouchGFX_Task(void *argument);
@@ -774,26 +777,30 @@ void ReadPressureData(void)
     // Receive the response from the sensor
     if (HAL_I2C_Master_Receive(&hi2c4, slave_address, data_buffer, sizeof(data_buffer), HAL_MAX_DELAY) == HAL_OK)
     {
-    	// Check if the busy flag is cleared in the status byte (Bit 5 is 0)
-        if ((data_buffer[0] & 0x20) == 0)
+    	// Check if the busy flag is cleared in the status byte (Bit 5 AND 6 is 0)
+        if (((data_buffer[0] & 0x20) == 0) &&(data_buffer[0] & 0x40))
         {
         	// Combine the data bytes into a 24-bit pressure value and store it in the global variable
         	pressure =  (data_buffer[1] << 16) | (data_buffer[2] << 8) | data_buffer[3];
         	ConvertToPressure(pressure);  // Convert raw data to pressure value
+            if(calculated_pressure < 0 )
+            	vTaskDelay(1);
+        	printf("Raw Pressure Data: %lu\n", pressure);
 
         }
     }
 }
 
 // Convert raw data to pressure in psi
-void ConvertToPressure(uint32_t raw_output) {
+void ConvertToPressure(int32_t raw_output) {
     calculated_pressure = ((float)(raw_output - OUTPUT_MIN) / (OUTPUT_MAX - OUTPUT_MIN)) * (P_MAX - P_MIN) + P_MIN;
+
 }
 
-//// Convert pressure from psi to mmHg
-//float ConvertPressureToMMHg(float pressure_psi) {
-//    return pressure_psi * MMHG_CONVERSION_FACTOR;
-//}
+// Convert pressure from psi to mmHg
+float ConvertPressureToMMHg(float pressure_psi) {
+    return pressure_psi * MMHG_CONVERSION_FACTOR;
+}
 
 // Scale pressure for display on a 0-100 pixel graph
 uint16_t ScalePressureForDisplay(float pressure) {
@@ -813,8 +820,14 @@ void StartPressureTask(void *argument)
     	ReadPressureData();  // Read raw pressure data into `pressure`
 
     	ConvertToPressure(pressure);  // Convert raw data to psi
+
+    	 // Convert psi to mmHg
+    	pressure_mmhg = ConvertPressureToMMHg(calculated_pressure);
     	// Convert calculated pressure to display scale
     	scaled_pressure = ScalePressureForDisplay(calculated_pressure);  // Scale for display range
+
+//    	 // Print the values to the console or serial monitor
+//    	 printf("Calculated Pressure: %.3f psi, %.3f mmHg, Display Value: %u\n",  calculated_pressure, pressure_mmhg, scaled_pressure);
 
 
         // Delay between readings (e.g., 100 ms)
