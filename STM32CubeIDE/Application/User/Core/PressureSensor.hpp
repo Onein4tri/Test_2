@@ -13,7 +13,7 @@
 #define PRESSURE_SENSOR_H
 
 #include <stdint.h>
-
+extern uint16_t scaled_pressure;  // Declare the global variable
 #ifdef __cplusplus
 extern "C" {
 #endif

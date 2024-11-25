@@ -25,6 +25,9 @@
 #include "../../../../STM32CubeIDE/Application/User/Core/PressureSensor.hpp"
 #include <string.h>
 #include <stdio.h>
+#include "stm32h7xx.h"
+#include "stm32h7xx_hal.h"
+#include "stm32h7xx_hal_dma2d.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stm32h735g_discovery_ospi.h"
@@ -785,7 +788,6 @@ void ReadPressureData(void)
         	ConvertToPressure(pressure);  // Convert raw data to pressure value
             if(calculated_pressure < 0 )
             	vTaskDelay(1);
-        	printf("Raw Pressure Data: %lu\n", pressure);
 
         }
     }

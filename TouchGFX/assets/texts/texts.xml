@@ -2,21 +2,51 @@
 <TextDatabase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="texts.xsd" Version="4.24.1">
   <Languages>
     <Language Id="GB" />
+    <Language Id="timeText" />
   </Languages>
   <Texts>
-    <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
-      <Text Id="__SingleUse_SGPC" Alignment="Right" TypographyId="Default">
-        <Translation Language="GB">&lt;&gt;</Translation>
+      <Text Id="__SingleUse_WNCN" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">10</Translation>
+        <Translation Language="timeText">New Text</Translation>
       </Text>
-      <Text Id="__SingleUse_TUN6" Alignment="Left" TypographyId="Default">
+      <Text Id="__SingleUse_TX9M" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+        <Translation Language="timeText">New Text&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_670F" Alignment="Left" TypographyId="Small">
         <Translation Language="GB">&lt;&gt;</Translation>
+        <Translation Language="timeText">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="ResourceId4" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB"></Translation>
+        <Translation Language="timeText">New Text</Translation>
+      </Text>
+      <Text Id="__SingleUse_FZQY" Alignment="Right" TypographyId="Small">
+        <Translation Language="GB">&lt;&gt;</Translation>
+        <Translation Language="timeText">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_HVI7" Alignment="Right" TypographyId="Small">
+        <Translation Language="GB">&lt;&gt;</Translation>
+        <Translation Language="timeText">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="sineGraphLabel" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Pressure </Translation>
+        <Translation Language="timeText">New Text</Translation>
+      </Text>
+      <Text Id="ResourceId3" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">New Text</Translation>
+        <Translation Language="timeText"></Translation>
+      </Text>
+      <Text Id="ResourceId2" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">New Text</Translation>
+        <Translation Language="timeText"></Translation>
       </Text>
     </TextGroup>
   </Texts>
   <Typographies>
-    <Typography Id="Default" Font="verdana.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WidgetWildcardCharacters="-., 0123456789" />
+    <Typography Id="Default" Font="verdana.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="0123456789" />
     <Typography Id="Large" Font="verdana.ttf" Size="40" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="Small" Font="verdana.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Small" Font="verdana.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WidgetWildcardCharacters="-., 0123456789" />
   </Typographies>
 </TextDatabase>

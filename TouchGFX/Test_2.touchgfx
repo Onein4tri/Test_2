@@ -92,23 +92,25 @@
           {
             "Type": "DynamicGraph",
             "Name": "sineGraph",
-            "X": 3,
             "Y": 1,
-            "Width": 427,
+            "Width": 426,
             "Height": 270,
             "DataSeed": -359582300,
-            "NumberOfValues": 100,
+            "NumberOfValues": 21,
             "MaxY": 100.0,
             "MinY": -100.0,
             "Precision": "1",
-            "LastIndex": 99,
+            "UseCustomVisibleDataPointRange": true,
+            "LastIndex": 19,
             "XAxisScale": 1.0,
             "InsertRandomValues": true,
-            "LabelSizeTop": 4,
+            "LabelSizeTop": 6,
             "LabelSizeBottom": 33,
             "LabelSizeLeft": 59,
             "LabelSizeRight": -4,
-            "PaddingTop": 6,
+            "PaddingTop": 8,
+            "PaddingLeft": 1,
+            "PaddingRight": 7,
             "GraphType": "GraphScroll",
             "GraphDrawers": [
               {
@@ -124,27 +126,35 @@
             ],
             "XAxisGrid": {
               "Type": "GraphGrid",
-              "Interval": 13.0,
+              "Interval": 2.0,
               "LineWidth": 1
             },
             "YAxisGrid": {
               "Type": "GraphGrid",
-              "Interval": 498.0,
+              "Interval": 20.0,
               "LineWidth": 1
             },
             "XAxisLabel": {
               "Type": "GraphLabel",
-              "Interval": 10.0,
+              "Interval": 2.0,
               "DecimalSeparator": "Point",
-              "TextId": "__SingleUse_TUN6",
+              "TextId": "__SingleUse_670F",
               "TextRotation": "0",
               "Position": "Bottom"
             },
             "YAxisLabel": {
               "Type": "GraphLabel",
-              "Interval": 500.0,
+              "Interval": 20.0,
               "DecimalSeparator": "Point",
-              "TextId": "__SingleUse_SGPC",
+              "TextId": "__SingleUse_HVI7",
+              "TextRotation": "0",
+              "Position": "Left"
+            },
+            "MinorYAxisLabel": {
+              "Type": "GraphLabel",
+              "Interval": 20.0,
+              "DecimalSeparator": "Point",
+              "TextId": "__SingleUse_FZQY",
               "TextRotation": "0",
               "Position": "Left"
             }
@@ -190,6 +200,14 @@
                 }
               }
             ]
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "infowidget1",
+            "Y": -15,
+            "Width": 53,
+            "Height": 15,
+            "CustomContainerDefinitionName": "infowidget"
           }
         ],
         "Interactions": [
@@ -209,18 +227,60 @@
           {
             "InteractionName": "Interaction2",
             "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "flexButton1"
+              "Type": "TriggerGraphClicked",
+              "TriggerComponent": "sineGraph"
             },
             "Action": {
               "Type": "ActionCustom",
-              "FunctionName": "function1"
+              "FunctionName": "graph1Clicked"
+            }
+          },
+          {
+            "InteractionName": "Interaction3",
+            "Trigger": {
+              "Type": "TriggerGraphDragged",
+              "TriggerComponent": "sineGraph"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "graph1Dragged"
             }
           }
         ]
       }
     ],
-    "CustomContainerDefinitions": [],
+    "CustomContainerDefinitions": [
+      {
+        "Name": "infowidget",
+        "Width": 53,
+        "Height": 15,
+        "Components": [
+          {
+            "Type": "ScalableImage",
+            "Name": "scalableImage1",
+            "Width": 53,
+            "Height": 15,
+            "Filename": "__generated\\alternate_theme_images_containers_large_wide_light.png",
+            "ScalingAlgorithm": "Nearest-neighbor"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": -1,
+            "Width": 54,
+            "Height": 15,
+            "TextId": "__SingleUse_TX9M",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_WNCN",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          }
+        ],
+        "Interactions": []
+      }
+    ],
     "Name": "Test_2",
     "Resolution": {
       "Width": 480,

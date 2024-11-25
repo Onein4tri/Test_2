@@ -86,6 +86,9 @@ Application/User/gui/Screen2View.o: \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/TwoWildcardTextButtonStyle.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/WildcardTextButtonStyle.hpp \
+ ../../TouchGFX/gui/include/gui/containers/infowidget.hpp \
+ ../../TouchGFX/generated/gui_generated/include/gui_generated/containers/infowidgetBase.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ScalableImage.hpp \
  C:/TouchGFXProjects/Test_2/TouchGFX/gui/src/screen2_screen/../../../../STM32CubeIDE/Application/User/Core/PressureSensor.hpp
 ../../TouchGFX/gui/include/gui/screen2_screen/Screen2View.hpp:
 ../../TouchGFX/generated/gui_generated/include/gui_generated/screen2_screen/Screen2ViewBase.hpp:
@@ -173,4 +176,7 @@ Application/User/gui/Screen2View.o: \
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/TwoWildcardTextButtonStyle.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/WildcardTextButtonStyle.hpp:
+../../TouchGFX/gui/include/gui/containers/infowidget.hpp:
+../../TouchGFX/generated/gui_generated/include/gui_generated/containers/infowidgetBase.hpp:
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ScalableImage.hpp:
 C:/TouchGFXProjects/Test_2/TouchGFX/gui/src/screen2_screen/../../../../STM32CubeIDE/Application/User/Core/PressureSensor.hpp:

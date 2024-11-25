@@ -14,6 +14,7 @@
 #include <touchgfx/widgets/graph/GraphLabels.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB888.hpp>
 #include <touchgfx/containers/buttons/Buttons.hpp>
+#include <gui/containers/infowidget.hpp>
 
 class Screen2ViewBase : public touchgfx::View<Screen2Presenter>
 {
@@ -25,7 +26,11 @@ public:
     /*
      * Virtual Action Handlers
      */
-    virtual void function1()
+    virtual void graph1Clicked(AbstractDataGraph::GraphClickEvent value)
+    {
+        // Override and implement this function in Screen2
+    }
+    virtual void graph1Dragged(AbstractDataGraph::GraphDragEvent value)
     {
         // Override and implement this function in Screen2
     }
@@ -40,14 +45,16 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image image1;
-    touchgfx::GraphScroll<100> sineGraph;
+    touchgfx::GraphScroll<21> sineGraph;
     touchgfx::GraphElementGridX sineGraphMajorXAxisGrid;
     touchgfx::GraphElementGridY sineGraphMajorYAxisGrid;
+    touchgfx::GraphLabelsY sineGraphMinorYAxisLabel;
     touchgfx::GraphLabelsX sineGraphMajorXAxisLabel;
     touchgfx::GraphLabelsY sineGraphMajorYAxisLabel;
     touchgfx::GraphElementLine sineGraphLine1;
     touchgfx::PainterRGB888 sineGraphLine1Painter;
     touchgfx::IconButtonStyle< touchgfx::BoxWithBorderButtonStyle< touchgfx::ClickButtonTrigger >  >  flexButton1;
+    infowidget infowidget1;
 
 private:
 
@@ -61,11 +68,15 @@ private:
      * Callback Declarations
      */
     touchgfx::Callback<Screen2ViewBase, const touchgfx::AbstractButtonContainer&> flexButtonCallback;
+    touchgfx::Callback<Screen2ViewBase, const touchgfx::AbstractDataGraph&, const touchgfx::AbstractDataGraph::GraphClickEvent&> graphClickedCallback;
+    touchgfx::Callback<Screen2ViewBase, const touchgfx::AbstractDataGraph&, const touchgfx::AbstractDataGraph::GraphDragEvent&> graphDraggedCallback;
 
     /*
      * Callback Handler Declarations
      */
     void flexButtonCallbackHandler(const touchgfx::AbstractButtonContainer& src);
+    void graphClickedCallbackHandler(const touchgfx::AbstractDataGraph& src, const touchgfx::AbstractDataGraph::GraphClickEvent& value);
+    void graphDraggedCallbackHandler(const touchgfx::AbstractDataGraph& src, const touchgfx::AbstractDataGraph::GraphDragEvent& value);
 
 };
 
