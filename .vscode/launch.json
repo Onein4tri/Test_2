@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/TouchGFXProjects/Test_2/Core/Src",
-      "program": "c:/TouchGFXProjects/Test_2/Core/Src/build/Debug/outDebug",
+      "cwd": "c:/TouchGFXProjects/Test_2/TouchGFX/gui/src/screen2_screen",
+      "program": "c:/TouchGFXProjects/Test_2/TouchGFX/gui/src/screen2_screen/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

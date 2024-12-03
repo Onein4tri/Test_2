@@ -92,25 +92,24 @@
           {
             "Type": "DynamicGraph",
             "Name": "sineGraph",
-            "Y": 1,
             "Width": 426,
-            "Height": 270,
+            "Height": 271,
             "DataSeed": -359582300,
-            "NumberOfValues": 21,
+            "NumberOfValues": 12,
             "MaxY": 100.0,
             "MinY": -100.0,
             "Precision": "1",
             "UseCustomVisibleDataPointRange": true,
-            "LastIndex": 19,
+            "LastIndex": 10,
             "XAxisScale": 1.0,
             "InsertRandomValues": true,
             "LabelSizeTop": 6,
-            "LabelSizeBottom": 33,
+            "LabelSizeBottom": 32,
             "LabelSizeLeft": 59,
             "LabelSizeRight": -4,
             "PaddingTop": 8,
             "PaddingLeft": 1,
-            "PaddingRight": 7,
+            "PaddingRight": 10,
             "GraphType": "GraphScroll",
             "GraphDrawers": [
               {
@@ -126,7 +125,7 @@
             ],
             "XAxisGrid": {
               "Type": "GraphGrid",
-              "Interval": 2.0,
+              "Interval": 1.0,
               "LineWidth": 1
             },
             "YAxisGrid": {
@@ -136,7 +135,7 @@
             },
             "XAxisLabel": {
               "Type": "GraphLabel",
-              "Interval": 2.0,
+              "Interval": 1.0,
               "DecimalSeparator": "Point",
               "TextId": "__SingleUse_670F",
               "TextRotation": "0",

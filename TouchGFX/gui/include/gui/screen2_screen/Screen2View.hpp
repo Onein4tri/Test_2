@@ -1,3 +1,4 @@
+
 #ifndef SCREEN2VIEW_HPP
 #define SCREEN2VIEW_HPP
 
@@ -6,7 +7,7 @@
 #include <touchgfx/Unicode.hpp>  // For Unicode::snprintfFloat if needed
 #include <cmath> // Math library for sine calculation
 
-#define SCALE_FACTOR 57
+#define SCALE_FACTOR 8
 
 class Screen2View : public Screen2ViewBase
 {
@@ -18,6 +19,7 @@ public:
     virtual void tearDownScreen();
     virtual void handleTickEvent(); // for external event to able to insert values into the graph
     void updatePressureGraph();
+    void updatePressureText(); // New method
 
     virtual void graph1Clicked(AbstractDataGraph::GraphClickEvent value)override;
     virtual void graph1Dragged(AbstractDataGraph::GraphDragEvent value)override;
@@ -28,7 +30,7 @@ public:
 private:
         int tickCounter;    // Tracks the update interval, control how often to insert into the graph
         int lastIndex;
-
+        float pressure_mmhg;
 protected:
          void updateInfoWidgetPosition();
 };

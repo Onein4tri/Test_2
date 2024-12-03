@@ -28,6 +28,8 @@
 #include "stm32h7xx.h"
 #include "stm32h7xx_hal.h"
 #include "stm32h7xx_hal_dma2d.h"
+#include "stm32h7xx_hal_def.h"
+#include <stdbool.h>
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stm32h735g_discovery_ospi.h"
@@ -67,20 +69,33 @@ osThreadId_t defaultTaskHandle;
 
 #define OUTPUT_MAX 15099494  // 90% of 24-bit max
 #define OUTPUT_MIN 1677722   // 10% of 24-bit max
-#define P_MAX 1.0            // Maximum pressure in psi (change as needed)
-#define P_MIN -1.0           // Minimum pressure in psi (change as needed)
+#define P_MAX 25           // Maximum pressure in psi (change as needed)
+#define P_MIN 0           // Minimum pressure in psi (change as needed)
 
 
 #define GRAPH_MAX_PIXEL 100   // Display y-axis range (0-100 pixels)
-#define MMHG_CONVERSION_FACTOR 51.715  // Conversion factor for psi to mmHg
 
+
+//for the buffer
+#define MAX_DATA_POINTS 100  // Maximum number of points to store
+#define DATA_UPDATE_RATE 100 // Update rate in milliseconds
+#define DISPLAY_WINDOW 100      // Number of points to display at once
+#define PSI_TO_MMHG 51.715  // Conversion factor from psi to mmHg
 
 int32_t pressure = 0;
 float calculated_pressure = 0.0;
 uint16_t scaled_pressure = 0;     // Scaled pressure for display
 // Global variable for scaled pressure
 float pressure_mmhg = 0.0; // Add a global or local variable for mmHg
+float Calibration_value = 0.0;
 
+typedef struct {
+   float pressure_values[MAX_DATA_POINTS];
+   int write_index;
+   int read_index;
+   bool buffer_full;
+ } PressureBuffer;
+PressureBuffer pressure_buffer = {0};
 
 // Definitions for PressureTask
 osThreadId_t pressureTaskHandle;
@@ -758,6 +773,49 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
+void ResetPressureBuffer(void) {
+   memset(&pressure_buffer, 0, sizeof(PressureBuffer));
+}
+// Add this function after other function declarations
+void UpdatePressureBuffer(float new_pressure) {
+   // Store the new pressure value
+   pressure_buffer.pressure_values[pressure_buffer.write_index] = new_pressure;
+
+   // Update write index
+   pressure_buffer.write_index = (pressure_buffer.write_index + 1) % MAX_DATA_POINTS;
+
+   // Update read index to maintain sliding window
+   if (pressure_buffer.buffer_full) {
+       pressure_buffer.read_index = (pressure_buffer.write_index + 1) % MAX_DATA_POINTS;
+   }
+
+   // Set buffer full flag if we've wrapped around
+   if (pressure_buffer.write_index == 0) {
+       pressure_buffer.buffer_full = true;
+   }
+}
+
+int GetPressureHistory(float* output, int num_points) {
+   if (num_points > MAX_DATA_POINTS) {
+       num_points = MAX_DATA_POINTS;
+   }
+
+   int available_points = pressure_buffer.buffer_full ?
+       MAX_DATA_POINTS : pressure_buffer.write_index;
+
+   if (num_points > available_points) {
+       num_points = available_points;
+   }
+
+   for (int i = 0; i < num_points; i++) {
+       int read_index = (pressure_buffer.write_index - num_points + i + MAX_DATA_POINTS) % MAX_DATA_POINTS;
+       output[i] = pressure_buffer.pressure_values[read_index];
+   }
+
+   return num_points;
+
+}
+
 // This function reads data from the pressure sensor over I2C
 void ReadPressureData(void)
 {
@@ -793,15 +851,24 @@ void ReadPressureData(void)
     }
 }
 
+//int mmHgToYAxis(float pressure_mmhg, float mmHg_min, float mmHg_max) {
+	//const float mmHg_min = -600; // Vacuum maximum suction
+ //   const float mmHg_max = 0;    // Atmospheric pressure
+//    return 100 - ((pressure_mmhg - mmHg_min) / (mmHg_max - mmHg_min)) * 200;
+//}
+
+
 // Convert raw data to pressure in psi
 void ConvertToPressure(int32_t raw_output) {
     calculated_pressure = ((float)(raw_output - OUTPUT_MIN) / (OUTPUT_MAX - OUTPUT_MIN)) * (P_MAX - P_MIN) + P_MIN;
 
+    // Convert to mmHg for further use
+    pressure_mmhg = ConvertPressureToMMHg(calculated_pressure)-Calibration_value;
+
 }
 
-// Convert pressure from psi to mmHg
 float ConvertPressureToMMHg(float pressure_psi) {
-    return pressure_psi * MMHG_CONVERSION_FACTOR;
+ return pressure_psi*PSI_TO_MMHG;
 }
 
 // Scale pressure for display on a 0-100 pixel graph
@@ -815,23 +882,31 @@ uint16_t ScalePressureForDisplay(float pressure) {
 // Task to continuously read pressure data from the sensor
 void StartPressureTask(void *argument)
 {
+   ResetPressureBuffer();
+	ReadPressureData();  // Read raw pressure data into pressure
+	ReadPressureData();  // Read raw pressure data into pressure
+	ReadPressureData();  // Read raw pressure data into pressure
+	Calibration_value = pressure_mmhg;
     for(;;)
     {
 
-    	// Call the function to read pressure data and store in the global `pressure` variable
-    	ReadPressureData();  // Read raw pressure data into `pressure`
+    	// Call the function to read pressure data and store in the global pressure variable
+    	ReadPressureData();  // Read raw pressure data into pressure
 
     	ConvertToPressure(pressure);  // Convert raw data to psi
+        // Update the circular buffer with new pressure value
+        UpdatePressureBuffer(calculated_pressure);
 
-    	 // Convert psi to mmHg
-    	pressure_mmhg = ConvertPressureToMMHg(calculated_pressure);
     	// Convert calculated pressure to display scale
-    	scaled_pressure = ScalePressureForDisplay(calculated_pressure);  // Scale for display range
+        //	scaled_pressure = ScalePressureForDisplay(calculated_pressure);  // Scale for display range
+    	//pressure_mmhg = ConvertPressureToMMHg(calculated_pressure); // Convert to mmHg
+    	//scaled_pressure = ScalePressureForDisplay(pressure_mmhg); // Scale for graph display
 
-//    	 // Print the values to the console or serial monitor
-//    	 printf("Calculated Pressure: %.3f psi, %.3f mmHg, Display Value: %u\n",  calculated_pressure, pressure_mmhg, scaled_pressure);
 
-
+       // Optional: Reset buffer if it gets stuck
+       if (pressure_buffer.write_index >= MAX_DATA_POINTS) {
+           ResetPressureBuffer();
+       }
         // Delay between readings (e.g., 100 ms)
         osDelay(pdMS_TO_TICKS(100));
     }
@@ -855,13 +930,8 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
 
-//	          ReadPressureData(&pressure_value);
-
-	          // Print or use the pressure value as needed
-//	          printf("Pressure: %d\n", pressure_value);
-
-	          // Delay between reads (e.g., 100 ms for real-time reading)
-	          osDelay(100);
+	  // Delay between reads (e.g., 100 ms for real-time reading)
+	  osDelay(100);
 
 
   }

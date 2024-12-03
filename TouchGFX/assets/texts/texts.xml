@@ -6,6 +6,18 @@
   </Languages>
   <Texts>
     <TextGroup Id="Unsorted">
+      <Text Id="T_PRESSURE_TEXT" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">mmHg</Translation>
+        <Translation Language="timeText">New Text</Translation>
+      </Text>
+      <Text Id="T_SECOND_LABEL" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">seconds</Translation>
+        <Translation Language="timeText">New Text</Translation>
+      </Text>
+      <Text Id="T_MMHG_LABEL" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">mmHg</Translation>
+        <Translation Language="timeText">New Text</Translation>
+      </Text>
       <Text Id="__SingleUse_WNCN" Alignment="Left" TypographyId="Small">
         <Translation Language="GB">10</Translation>
         <Translation Language="timeText">New Text</Translation>

@@ -48,7 +48,7 @@ build/MINGW32_NT-6.2/gui/src/screen2_screen/Screen2View.o: \
  gui/include/gui/model/ModelListener.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/GraphWrapAndClear.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/GraphScroll.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/AbstractDataGraph.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/CWRUtil.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/Utils.hpp \
@@ -89,7 +89,8 @@ build/MINGW32_NT-6.2/gui/src/screen2_screen/Screen2View.o: \
  gui/include/gui/containers/infowidget.hpp \
  generated/gui_generated/include/gui_generated/containers/infowidgetBase.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ScalableImage.hpp \
- C:/TouchGFXProjects/Test_2/STM32CubeIDE/Application/User/Core/PressureSensor.hpp
+ C:/TouchGFXProjects/Test_2/STM32CubeIDE/Application/User/Core/PressureSensor.hpp \
+ generated/texts/include/texts/TextKeysAndLanguages.hpp
 
 gui/include/gui/screen2_screen/Screen2View.hpp:
 
@@ -187,7 +188,7 @@ gui/include/gui/model/ModelListener.hpp:
 
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/GraphWrapAndClear.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/GraphScroll.hpp:
 
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/AbstractDataGraph.hpp:
 
@@ -270,3 +271,5 @@ generated/gui_generated/include/gui_generated/containers/infowidgetBase.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ScalableImage.hpp:
 
 C:/TouchGFXProjects/Test_2/STM32CubeIDE/Application/User/Core/PressureSensor.hpp:
+
+generated/texts/include/texts/TextKeysAndLanguages.hpp:

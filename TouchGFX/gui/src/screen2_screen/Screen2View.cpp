@@ -1,3 +1,4 @@
+
 #include <gui/screen2_screen/Screen2View.hpp>
 #include <touchgfx/Unicode.hpp>  // If using Unicode::snprintfFloat
 
@@ -5,10 +6,13 @@
 #include<math.h>
 
 #include "../../../../STM32CubeIDE/Application/User/Core/PressureSensor.hpp"
+#include <texts/TextKeysAndLanguages.hpp>
+
 
 
 // Access the global pressure variable from main.c
 extern uint16_t scaled_pressure;
+extern float pressure_mmhg;
 Screen2View::Screen2View() : tickCounter(0), lastIndex(0) // Initialize variables
 {
 
@@ -28,7 +32,9 @@ void Screen2View::tearDownScreen()
 
 void Screen2View::updatePressureGraph()
 {
-	  sineGraph.addDataPoint(static_cast<int>(scaled_pressure)- SCALE_FACTOR);
+	  //sineGraph.addDataPoint(static_cast<int>(pressure_mmhg)- SCALE_FACTOR);y
+	int y_position = -1*pressure_mmhg/7; //100 - ((pressure_mmhg - (-200)) / (200 - (-200))) * 200; // Assuming mmHg range is -200 to 200
+	sineGraph.addDataPoint(y_position );
 
 }
 

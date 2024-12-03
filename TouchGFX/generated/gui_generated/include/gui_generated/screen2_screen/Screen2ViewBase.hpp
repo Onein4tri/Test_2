@@ -45,7 +45,7 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image image1;
-    touchgfx::GraphScroll<21> sineGraph;
+    touchgfx::GraphScroll<12> sineGraph;
     touchgfx::GraphElementGridX sineGraphMajorXAxisGrid;
     touchgfx::GraphElementGridY sineGraphMajorYAxisGrid;
     touchgfx::GraphLabelsY sineGraphMinorYAxisLabel;

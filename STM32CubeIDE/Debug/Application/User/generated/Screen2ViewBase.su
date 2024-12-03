@@ -112,7 +112,7 @@
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:290:8:touchgfx::Callback<Screen2ViewBase, const touchgfx::AbstractDataGraph&, const touchgfx::AbstractDataGraph::GraphClickEvent&>::~Callback()	0	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:357:8:touchgfx::Callback<Screen2ViewBase, const touchgfx::AbstractButtonContainer&>::~Callback()	0	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/IconButtonStyle.hpp:44:7:touchgfx::IconButtonStyle<touchgfx::BoxWithBorderButtonStyle<touchgfx::ClickButtonTrigger> >::~IconButtonStyle()	0	static
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/GraphScroll.hpp:76:7:touchgfx::GraphScroll<21>::~GraphScroll()	0	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/GraphScroll.hpp:76:7:touchgfx::GraphScroll<12>::~GraphScroll()	0	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/GraphElements.hpp:618:7:touchgfx::GraphElementGridY::~GraphElementGridY()	0	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/GraphElements.hpp:557:7:touchgfx::GraphElementGridX::~GraphElementGridX()	0	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:318:18:void touchgfx::Callback<dest_type, T1, T2, void>::execute(T1, T2) [with dest_type = Screen2ViewBase; T1 = const touchgfx::AbstractDataGraph&; T2 = const touchgfx::AbstractDataGraph::GraphDragEvent&]	12	static
@@ -130,7 +130,7 @@
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/ClickButtonTrigger.hpp:35:7:virtual touchgfx::ClickButtonTrigger::~ClickButtonTrigger()	8	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/GraphElements.hpp:557:7:virtual touchgfx::GraphElementGridX::~GraphElementGridX()	8	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/GraphElements.hpp:618:7:virtual touchgfx::GraphElementGridY::~GraphElementGridY()	8	static
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/GraphScroll.hpp:76:7:virtual touchgfx::GraphScroll<21>::~GraphScroll()	8	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/GraphScroll.hpp:76:7:virtual touchgfx::GraphScroll<12>::~GraphScroll()	8	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/BoxWithBorderButtonStyle.hpp:41:7:virtual touchgfx::BoxWithBorderButtonStyle<touchgfx::ClickButtonTrigger>::~BoxWithBorderButtonStyle()	8	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/IconButtonStyle.hpp:44:7:virtual touchgfx::IconButtonStyle<touchgfx::BoxWithBorderButtonStyle<touchgfx::ClickButtonTrigger> >::~IconButtonStyle()	8	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:357:8:virtual touchgfx::Callback<Screen2ViewBase, const touchgfx::AbstractButtonContainer&>::~Callback()	8	static
@@ -138,19 +138,19 @@
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:290:8:virtual touchgfx::Callback<Screen2ViewBase, const touchgfx::AbstractDataGraph&, const touchgfx::AbstractDataGraph::GraphDragEvent&>::~Callback()	8	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/GraphElements.hpp:560:17:virtual int touchgfx::GraphElementGridX::getCorrectlyScaledGridInterval(const touchgfx::AbstractDataGraph*) const	16	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/GraphElements.hpp:621:17:virtual int touchgfx::GraphElementGridY::getCorrectlyScaledGridInterval(const touchgfx::AbstractDataGraph*) const	16	static
-C:/TouchGFXProjects/Test_2/TouchGFX/generated/gui_generated/src/screen2_screen/Screen2ViewBase.cpp:111:6:virtual void Screen2ViewBase::setupScreen()	0	static
+C:/TouchGFXProjects/Test_2/TouchGFX/generated/gui_generated/src/screen2_screen/Screen2ViewBase.cpp:102:6:virtual void Screen2ViewBase::setupScreen()	0	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:121:18:virtual void touchgfx::Drawable::invalidateContent() const	0	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/AbstractDataGraph.hpp:1176:18:virtual void touchgfx::AbstractDataGraph::invalidateContent() const	8	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/AbstractButtonContainer.hpp:99:18:virtual void touchgfx::AbstractButtonContainer::executeAction()	8	static
-C:/TouchGFXProjects/Test_2/TouchGFX/generated/gui_generated/src/screen2_screen/Screen2ViewBase.cpp:127:6:void Screen2ViewBase::graphClickedCallbackHandler(const touchgfx::AbstractDataGraph&, const touchgfx::AbstractDataGraph::GraphClickEvent&)	4	static
-C:/TouchGFXProjects/Test_2/TouchGFX/generated/gui_generated/src/screen2_screen/Screen2ViewBase.cpp:138:6:void Screen2ViewBase::graphDraggedCallbackHandler(const touchgfx::AbstractDataGraph&, const touchgfx::AbstractDataGraph::GraphDragEvent&)	4	static
+C:/TouchGFXProjects/Test_2/TouchGFX/generated/gui_generated/src/screen2_screen/Screen2ViewBase.cpp:118:6:void Screen2ViewBase::graphClickedCallbackHandler(const touchgfx::AbstractDataGraph&, const touchgfx::AbstractDataGraph::GraphClickEvent&)	4	static
+C:/TouchGFXProjects/Test_2/TouchGFX/generated/gui_generated/src/screen2_screen/Screen2ViewBase.cpp:129:6:void Screen2ViewBase::graphDraggedCallbackHandler(const touchgfx::AbstractDataGraph&, const touchgfx::AbstractDataGraph::GraphDragEvent&)	4	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/AbstractDataGraph.hpp:1591:17:virtual int touchgfx::DynamicDataGraph::indexToDataPointYScaled(int16_t) const	8	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/AbstractDataGraph.hpp:1585:17:virtual int touchgfx::DynamicDataGraph::indexToDataPointXScaled(int16_t) const	8	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Widget.hpp:45:18:virtual void touchgfx::Widget::getLastChild(int16_t, int16_t, touchgfx::Drawable**)	0	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/ClickButtonTrigger.hpp:47:18:virtual void touchgfx::ClickButtonTrigger::handleClickEvent(const touchgfx::ClickEvent&)	16	static
-C:/TouchGFXProjects/Test_2/TouchGFX/generated/gui_generated/src/screen2_screen/Screen2ViewBase.cpp:116:6:void Screen2ViewBase::flexButtonCallbackHandler(const touchgfx::AbstractButtonContainer&)	8	static
-C:/TouchGFXProjects/Test_2/TouchGFX/generated/gui_generated/src/screen2_screen/Screen2ViewBase.cpp:106:1:Screen2ViewBase::~Screen2ViewBase()	8	static
-C:/TouchGFXProjects/Test_2/TouchGFX/generated/gui_generated/src/screen2_screen/Screen2ViewBase.cpp:106:1:virtual Screen2ViewBase::~Screen2ViewBase()	8	static
+C:/TouchGFXProjects/Test_2/TouchGFX/generated/gui_generated/src/screen2_screen/Screen2ViewBase.cpp:107:6:void Screen2ViewBase::flexButtonCallbackHandler(const touchgfx::AbstractButtonContainer&)	8	static
+C:/TouchGFXProjects/Test_2/TouchGFX/generated/gui_generated/src/screen2_screen/Screen2ViewBase.cpp:97:1:Screen2ViewBase::~Screen2ViewBase()	8	static
+C:/TouchGFXProjects/Test_2/TouchGFX/generated/gui_generated/src/screen2_screen/Screen2ViewBase.cpp:97:1:virtual Screen2ViewBase::~Screen2ViewBase()	8	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:48:5:touchgfx::Drawable::Drawable()	0	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:343:10:void touchgfx::Drawable::setXY(int16_t, int16_t)	16	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/IconButtonStyle.hpp:59:18:void touchgfx::IconButtonStyle<T>::setIconBitmaps(const touchgfx::Bitmap&, const touchgfx::Bitmap&) [with T = touchgfx::BoxWithBorderButtonStyle<touchgfx::ClickButtonTrigger>]	24	static

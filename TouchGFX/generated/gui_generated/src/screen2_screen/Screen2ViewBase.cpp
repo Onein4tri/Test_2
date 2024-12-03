@@ -22,16 +22,16 @@ Screen2ViewBase::Screen2ViewBase() :
     image1.setBitmap(touchgfx::Bitmap(BITMAP_CLAY_THEME_IMAGES_BACKGROUNDS_480X272_METEOR_RAIN_ID));
     add(image1);
 
-    sineGraph.setPosition(0, 1, 426, 270);
+    sineGraph.setPosition(0, 0, 426, 271);
     sineGraph.setScale(1);
-    sineGraph.setGraphRangeX(0, 19);
-    sineGraph.setGraphAreaMargin(6, 59, -4, 33);
-    sineGraph.setGraphAreaPadding(8, 1, 7, 0);
+    sineGraph.setGraphRangeX(0, 10);
+    sineGraph.setGraphAreaMargin(6, 59, -4, 32);
+    sineGraph.setGraphAreaPadding(8, 1, 10, 0);
     sineGraph.setGraphRangeY(-100, 100);
     sineGraph.setClickAction(graphClickedCallback);
     sineGraph.setDragAction(graphDraggedCallback);
     sineGraphMajorXAxisGrid.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    sineGraphMajorXAxisGrid.setInterval(2);
+    sineGraphMajorXAxisGrid.setInterval(1);
     sineGraphMajorXAxisGrid.setLineWidth(1);
     sineGraphMajorXAxisGrid.setScale(1);
     sineGraph.addGraphElement(sineGraphMajorXAxisGrid);
@@ -49,7 +49,7 @@ Screen2ViewBase::Screen2ViewBase() :
     sineGraphMinorYAxisLabel.setMajorLabel(sineGraphMajorYAxisLabel);
     sineGraph.addLeftElement(sineGraphMinorYAxisLabel);
 
-    sineGraphMajorXAxisLabel.setInterval(2);
+    sineGraphMajorXAxisLabel.setInterval(1);
     sineGraphMajorXAxisLabel.setLabelTypedText(touchgfx::TypedText(T___SINGLEUSE_670F));
     sineGraphMajorXAxisLabel.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     sineGraphMajorXAxisLabel.setScale(1);
@@ -67,27 +67,18 @@ Screen2ViewBase::Screen2ViewBase() :
     sineGraph.addGraphElement(sineGraphLine1);
 
 
-    sineGraph.addDataPoint(-1.34475f);
-    sineGraph.addDataPoint(48.98517f);
-    sineGraph.addDataPoint(-24.38685f);
-    sineGraph.addDataPoint(-87.09086f);
-    sineGraph.addDataPoint(20.17602f);
-    sineGraph.addDataPoint(-19.88538f);
-    sineGraph.addDataPoint(48.87585f);
-    sineGraph.addDataPoint(73.48033f);
-    sineGraph.addDataPoint(-51.32834f);
-    sineGraph.addDataPoint(-2.92939f);
-    sineGraph.addDataPoint(-52.85379f);
-    sineGraph.addDataPoint(-42.40261f);
-    sineGraph.addDataPoint(81.3637f);
-    sineGraph.addDataPoint(8.2564f);
-    sineGraph.addDataPoint(36.68421f);
-    sineGraph.addDataPoint(5.60811f);
-    sineGraph.addDataPoint(-97.11893f);
-    sineGraph.addDataPoint(7.43197f);
-    sineGraph.addDataPoint(-9.36468f);
-    sineGraph.addDataPoint(22.81831f);
-    sineGraph.addDataPoint(91.36557f);
+    sineGraph.addDataPoint(45.76718f);
+    sineGraph.addDataPoint(-67.47697f);
+    sineGraph.addDataPoint(-17.47422f);
+    sineGraph.addDataPoint(96.55419f);
+    sineGraph.addDataPoint(-43.09696f);
+    sineGraph.addDataPoint(-70.34679f);
+    sineGraph.addDataPoint(80.01057f);
+    sineGraph.addDataPoint(12.73386f);
+    sineGraph.addDataPoint(-61.98898f);
+    sineGraph.addDataPoint(20.19053f);
+    sineGraph.addDataPoint(15.80567f);
+    sineGraph.addDataPoint(-0.34428f);
     add(sineGraph);
 
     flexButton1.setBoxWithBorderPosition(0, 0, 50, 50);

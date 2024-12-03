@@ -52,6 +52,7 @@ Application/User/Core/main.o: C:/TouchGFXProjects/Test_2/Core/Src/main.c \
  ../../LIBJPEG/Target/jconfig.h ../../LIBJPEG/Target/jdata_conf.h \
  ../../LIBJPEG/Target/jmorecfg.h ../../TouchGFX/App/app_touchgfx.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy/../../../../STM32CubeIDE/Application/User/Core/PressureSensor.hpp \
+ ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h \
  ../../Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ospi.h \
  ../../Core/Inc/stm32h735g_discovery_conf.h \
  ../../Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_errno.h \
@@ -114,6 +115,7 @@ Application/User/Core/main.o: C:/TouchGFXProjects/Test_2/Core/Src/main.c \
 ../../LIBJPEG/Target/jmorecfg.h:
 ../../TouchGFX/App/app_touchgfx.h:
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy/../../../../STM32CubeIDE/Application/User/Core/PressureSensor.hpp:
+../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:
 ../../Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ospi.h:
 ../../Core/Inc/stm32h735g_discovery_conf.h:
 ../../Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_errno.h:
