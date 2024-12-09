@@ -48,7 +48,6 @@ protected:
     touchgfx::GraphScroll<12> sineGraph;
     touchgfx::GraphElementGridX sineGraphMajorXAxisGrid;
     touchgfx::GraphElementGridY sineGraphMajorYAxisGrid;
-    touchgfx::GraphLabelsY sineGraphMinorYAxisLabel;
     touchgfx::GraphLabelsX sineGraphMajorXAxisLabel;
     touchgfx::GraphLabelsY sineGraphMajorYAxisLabel;
     touchgfx::GraphElementLine sineGraphLine1;

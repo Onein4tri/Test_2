@@ -8,6 +8,7 @@
 #include <cmath> // Math library for sine calculation
 
 #define SCALE_FACTOR 8
+#define GRAPH_MAX_PIXEL 700
 
 class Screen2View : public Screen2ViewBase
 {

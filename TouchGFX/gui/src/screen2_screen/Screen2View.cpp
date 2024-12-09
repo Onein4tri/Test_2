@@ -33,7 +33,7 @@ void Screen2View::tearDownScreen()
 void Screen2View::updatePressureGraph()
 {
 	  //sineGraph.addDataPoint(static_cast<int>(pressure_mmhg)- SCALE_FACTOR);y
-	int y_position = -1*pressure_mmhg/7; //100 - ((pressure_mmhg - (-200)) / (200 - (-200))) * 200; // Assuming mmHg range is -200 to 200
+	int y_position = -1*pressure_mmhg; //100 - ((pressure_mmhg - (-200)) / (200 - (-200))) * 200; // Assuming mmHg range is -200 to 200
 	sineGraph.addDataPoint(y_position );
 
 }

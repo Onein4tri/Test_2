@@ -34,10 +34,6 @@
         <Translation Language="GB"></Translation>
         <Translation Language="timeText">New Text</Translation>
       </Text>
-      <Text Id="__SingleUse_FZQY" Alignment="Right" TypographyId="Small">
-        <Translation Language="GB">&lt;&gt;</Translation>
-        <Translation Language="timeText">&lt;&gt;</Translation>
-      </Text>
       <Text Id="__SingleUse_HVI7" Alignment="Right" TypographyId="Small">
         <Translation Language="GB">&lt;&gt;</Translation>
         <Translation Language="timeText">&lt;&gt;</Translation>

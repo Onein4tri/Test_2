@@ -94,15 +94,14 @@
             "Name": "sineGraph",
             "Width": 426,
             "Height": 271,
-            "DataSeed": -359582300,
+            "DataSeed": 408826952,
             "NumberOfValues": 12,
-            "MaxY": 100.0,
-            "MinY": -100.0,
+            "MaxY": 700.0,
+            "MinY": -50.0,
             "Precision": "1",
             "UseCustomVisibleDataPointRange": true,
             "LastIndex": 10,
             "XAxisScale": 1.0,
-            "InsertRandomValues": true,
             "LabelSizeTop": 6,
             "LabelSizeBottom": 32,
             "LabelSizeLeft": 59,
@@ -130,7 +129,7 @@
             },
             "YAxisGrid": {
               "Type": "GraphGrid",
-              "Interval": 20.0,
+              "Interval": 50.0,
               "LineWidth": 1
             },
             "XAxisLabel": {
@@ -143,17 +142,9 @@
             },
             "YAxisLabel": {
               "Type": "GraphLabel",
-              "Interval": 20.0,
+              "Interval": 50.0,
               "DecimalSeparator": "Point",
               "TextId": "__SingleUse_HVI7",
-              "TextRotation": "0",
-              "Position": "Left"
-            },
-            "MinorYAxisLabel": {
-              "Type": "GraphLabel",
-              "Interval": 20.0,
-              "DecimalSeparator": "Point",
-              "TextId": "__SingleUse_FZQY",
               "TextRotation": "0",
               "Position": "Left"
             }

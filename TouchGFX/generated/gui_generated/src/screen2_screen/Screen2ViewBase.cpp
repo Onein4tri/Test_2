@@ -27,7 +27,7 @@ Screen2ViewBase::Screen2ViewBase() :
     sineGraph.setGraphRangeX(0, 10);
     sineGraph.setGraphAreaMargin(6, 59, -4, 32);
     sineGraph.setGraphAreaPadding(8, 1, 10, 0);
-    sineGraph.setGraphRangeY(-100, 100);
+    sineGraph.setGraphRangeY(-50, 700);
     sineGraph.setClickAction(graphClickedCallback);
     sineGraph.setDragAction(graphDraggedCallback);
     sineGraphMajorXAxisGrid.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
@@ -37,17 +37,10 @@ Screen2ViewBase::Screen2ViewBase() :
     sineGraph.addGraphElement(sineGraphMajorXAxisGrid);
 
     sineGraphMajorYAxisGrid.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    sineGraphMajorYAxisGrid.setInterval(20);
+    sineGraphMajorYAxisGrid.setInterval(50);
     sineGraphMajorYAxisGrid.setLineWidth(1);
     sineGraphMajorYAxisGrid.setScale(1);
     sineGraph.addGraphElement(sineGraphMajorYAxisGrid);
-
-    sineGraphMinorYAxisLabel.setInterval(20);
-    sineGraphMinorYAxisLabel.setLabelTypedText(touchgfx::TypedText(T___SINGLEUSE_FZQY));
-    sineGraphMinorYAxisLabel.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    sineGraphMinorYAxisLabel.setScale(1);
-    sineGraphMinorYAxisLabel.setMajorLabel(sineGraphMajorYAxisLabel);
-    sineGraph.addLeftElement(sineGraphMinorYAxisLabel);
 
     sineGraphMajorXAxisLabel.setInterval(1);
     sineGraphMajorXAxisLabel.setLabelTypedText(touchgfx::TypedText(T___SINGLEUSE_670F));
@@ -55,7 +48,7 @@ Screen2ViewBase::Screen2ViewBase() :
     sineGraphMajorXAxisLabel.setScale(1);
     sineGraph.addBottomElement(sineGraphMajorXAxisLabel);
 
-    sineGraphMajorYAxisLabel.setInterval(20);
+    sineGraphMajorYAxisLabel.setInterval(50);
     sineGraphMajorYAxisLabel.setLabelTypedText(touchgfx::TypedText(T___SINGLEUSE_HVI7));
     sineGraphMajorYAxisLabel.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     sineGraphMajorYAxisLabel.setScale(1);
@@ -67,18 +60,6 @@ Screen2ViewBase::Screen2ViewBase() :
     sineGraph.addGraphElement(sineGraphLine1);
 
 
-    sineGraph.addDataPoint(45.76718f);
-    sineGraph.addDataPoint(-67.47697f);
-    sineGraph.addDataPoint(-17.47422f);
-    sineGraph.addDataPoint(96.55419f);
-    sineGraph.addDataPoint(-43.09696f);
-    sineGraph.addDataPoint(-70.34679f);
-    sineGraph.addDataPoint(80.01057f);
-    sineGraph.addDataPoint(12.73386f);
-    sineGraph.addDataPoint(-61.98898f);
-    sineGraph.addDataPoint(20.19053f);
-    sineGraph.addDataPoint(15.80567f);
-    sineGraph.addDataPoint(-0.34428f);
     add(sineGraph);
 
     flexButton1.setBoxWithBorderPosition(0, 0, 50, 50);

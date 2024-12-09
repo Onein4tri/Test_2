@@ -73,7 +73,7 @@ osThreadId_t defaultTaskHandle;
 #define P_MIN 0           // Minimum pressure in psi (change as needed)
 
 
-#define GRAPH_MAX_PIXEL 100   // Display y-axis range (0-100 pixels)
+#define GRAPH_MAX_PIXEL 700   // Display y-axis range (0-100 pixels)
 
 
 //for the buffer
@@ -864,11 +864,10 @@ void ConvertToPressure(int32_t raw_output) {
 
     // Convert to mmHg for further use
     pressure_mmhg = ConvertPressureToMMHg(calculated_pressure)-Calibration_value;
-
 }
 
 float ConvertPressureToMMHg(float pressure_psi) {
- return pressure_psi*PSI_TO_MMHG;
+	return pressure_psi*PSI_TO_MMHG;
 }
 
 // Scale pressure for display on a 0-100 pixel graph
@@ -883,9 +882,9 @@ uint16_t ScalePressureForDisplay(float pressure) {
 void StartPressureTask(void *argument)
 {
    ResetPressureBuffer();
-	ReadPressureData();  // Read raw pressure data into pressure
-	ReadPressureData();  // Read raw pressure data into pressure
-	ReadPressureData();  // Read raw pressure data into pressure
+//	ReadPressureData();  // Read raw pressure data into pressure
+//	ReadPressureData();  // Read raw pressure data into pressure
+//	ReadPressureData();  // Read raw pressure data into pressure
 	Calibration_value = pressure_mmhg;
     for(;;)
     {
@@ -900,7 +899,7 @@ void StartPressureTask(void *argument)
     	// Convert calculated pressure to display scale
         //	scaled_pressure = ScalePressureForDisplay(calculated_pressure);  // Scale for display range
     	//pressure_mmhg = ConvertPressureToMMHg(calculated_pressure); // Convert to mmHg
-    	//scaled_pressure = ScalePressureForDisplay(pressure_mmhg); // Scale for graph display
+    	scaled_pressure = ScalePressureForDisplay(pressure_mmhg); // Scale for graph display
 
 
        // Optional: Reset buffer if it gets stuck

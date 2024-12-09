@@ -17,7 +17,6 @@ KEEP extern const uint32_t indicesTimetext[] TEXT_LOCATION_FLASH_ATTRIBUTE = {
     0,  // T___SINGLEUSE_TX9M: "New Text<>"
     8,  // T___SINGLEUSE_670F: "<>"
     20, // T_RESOURCEID4: "New Text"
-    8,  // T___SINGLEUSE_FZQY: "<>"
     8,  // T___SINGLEUSE_HVI7: "<>"
     20, // T_SINEGRAPHLABEL: "New Text"
     9,  // T_RESOURCEID3: ""
