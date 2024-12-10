@@ -1,4 +1,4 @@
-C:/TouchGFXProjects/Test_2/Middlewares/Third_Party/LibJPEG/source/jidctint.c:171:1:jpeg_idct_islow	5
+C:/TouchGFXProjects/Test_2/Middlewares/Third_Party/LibJPEG/source/jidctint.c:171:1:jpeg_idct_islow	17
 C:/TouchGFXProjects/Test_2/Middlewares/Third_Party/LibJPEG/source/jidctint.c:428:1:jpeg_idct_7x7	3
 C:/TouchGFXProjects/Test_2/Middlewares/Third_Party/LibJPEG/source/jidctint.c:577:1:jpeg_idct_6x6	3
 C:/TouchGFXProjects/Test_2/Middlewares/Third_Party/LibJPEG/source/jidctint.c:698:1:jpeg_idct_5x5	3
@@ -14,7 +14,7 @@ C:/TouchGFXProjects/Test_2/Middlewares/Third_Party/LibJPEG/source/jidctint.c:186
 C:/TouchGFXProjects/Test_2/Middlewares/Third_Party/LibJPEG/source/jidctint.c:2093:1:jpeg_idct_14x14	3
 C:/TouchGFXProjects/Test_2/Middlewares/Third_Party/LibJPEG/source/jidctint.c:2319:1:jpeg_idct_15x15	3
 C:/TouchGFXProjects/Test_2/Middlewares/Third_Party/LibJPEG/source/jidctint.c:2561:1:jpeg_idct_16x16	3
-C:/TouchGFXProjects/Test_2/Middlewares/Third_Party/LibJPEG/source/jidctint.c:2822:1:jpeg_idct_16x8	4
+C:/TouchGFXProjects/Test_2/Middlewares/Third_Party/LibJPEG/source/jidctint.c:2822:1:jpeg_idct_16x8	10
 C:/TouchGFXProjects/Test_2/Middlewares/Third_Party/LibJPEG/source/jidctint.c:3093:1:jpeg_idct_14x7	3
 C:/TouchGFXProjects/Test_2/Middlewares/Third_Party/LibJPEG/source/jidctint.c:3288:1:jpeg_idct_12x6	3
 C:/TouchGFXProjects/Test_2/Middlewares/Third_Party/LibJPEG/source/jidctint.c:3464:1:jpeg_idct_10x5	3
@@ -26,7 +26,7 @@ C:/TouchGFXProjects/Test_2/Middlewares/Third_Party/LibJPEG/source/jidctint.c:402
 C:/TouchGFXProjects/Test_2/Middlewares/Third_Party/LibJPEG/source/jidctint.c:4238:1:jpeg_idct_7x14	3
 C:/TouchGFXProjects/Test_2/Middlewares/Third_Party/LibJPEG/source/jidctint.c:4421:1:jpeg_idct_6x12	3
 C:/TouchGFXProjects/Test_2/Middlewares/Third_Party/LibJPEG/source/jidctint.c:4585:1:jpeg_idct_5x10	3
-C:/TouchGFXProjects/Test_2/Middlewares/Third_Party/LibJPEG/source/jidctint.c:4737:1:jpeg_idct_4x8	4
+C:/TouchGFXProjects/Test_2/Middlewares/Third_Party/LibJPEG/source/jidctint.c:4737:1:jpeg_idct_4x8	10
 C:/TouchGFXProjects/Test_2/Middlewares/Third_Party/LibJPEG/source/jidctint.c:4917:1:jpeg_idct_3x6	3
 C:/TouchGFXProjects/Test_2/Middlewares/Third_Party/LibJPEG/source/jidctint.c:5021:1:jpeg_idct_2x4	3
 C:/TouchGFXProjects/Test_2/Middlewares/Third_Party/LibJPEG/source/jidctint.c:5105:1:jpeg_idct_1x2	1

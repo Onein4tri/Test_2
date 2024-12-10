@@ -143,6 +143,7 @@ static void MX_OCTOSPI2_Init(void);
 static void MX_I2C4_Init(void);
 void StartPressureTask(void *argument);
 void ConvertToPressure(int32_t raw_output);
+void CalibrateSensor();
 uint16_t ScalePressureForDisplay(float pressure);
 void StartDefaultTask(void *argument);
 extern void TouchGFX_Task(void *argument);
@@ -171,8 +172,7 @@ int main(void)
 
   /* USER CODE END 1 */
 
-  /* MPU Configuration--------------------------------------------------------*/
-  MPU_Config();
+  /* MPU Configuration--------------------------------------------------------*/  MPU_Config();
 
   /* Enable the CPU Cache */
 
@@ -822,18 +822,17 @@ void ReadPressureData(void)
 
 	uint8_t slave_address = 0x18 << 1;  // Shift left for 7-bit addressing mode
     uint8_t data_to_send[3] = {0xAA, 0x00,0x00};  // Data to send, to trigger a pressure reading
+    // Buffer to store the response from the sensor (status byte + 3 data bytes)
+    uint8_t data_buffer[4];
 
     // Transmit data to the I2C slave, // Send the command to the sensor
     if (HAL_I2C_Master_Transmit(&hi2c4, slave_address, data_to_send, sizeof(data_to_send), HAL_MAX_DELAY) == HAL_OK)
     {
-        // Transmission successful
-        printf("Data transmitted successfully.\n");
+
     }
 
     // Wait for sensor to process the request (20 ms delay
     vTaskDelay(20);
-    // Buffer to store the response from the sensor (status byte + 3 data bytes)
-    uint8_t data_buffer[4];
 
     // Receive the response from the sensor
     if (HAL_I2C_Master_Receive(&hi2c4, slave_address, data_buffer, sizeof(data_buffer), HAL_MAX_DELAY) == HAL_OK)
@@ -844,26 +843,31 @@ void ReadPressureData(void)
         	// Combine the data bytes into a 24-bit pressure value and store it in the global variable
         	pressure =  (data_buffer[1] << 16) | (data_buffer[2] << 8) | data_buffer[3];
         	ConvertToPressure(pressure);  // Convert raw data to pressure value
-            if(calculated_pressure < 0 )
-            	vTaskDelay(1);
+//            if(calculated_pressure < 0 )
+//            	vTaskDelay(1);
 
         }
     }
+
 }
 
-//int mmHgToYAxis(float pressure_mmhg, float mmHg_min, float mmHg_max) {
-	//const float mmHg_min = -600; // Vacuum maximum suction
- //   const float mmHg_max = 0;    // Atmospheric pressure
-//    return 100 - ((pressure_mmhg - mmHg_min) / (mmHg_max - mmHg_min)) * 200;
-//}
 
 
 // Convert raw data to pressure in psi
 void ConvertToPressure(int32_t raw_output) {
+
     calculated_pressure = ((float)(raw_output - OUTPUT_MIN) / (OUTPUT_MAX - OUTPUT_MIN)) * (P_MAX - P_MIN) + P_MIN;
 
     // Convert to mmHg for further use
     pressure_mmhg = ConvertPressureToMMHg(calculated_pressure)-Calibration_value;
+
+    // testing in the expressions window
+    volatile float converted_pressure_psi = calculated_pressure;
+    volatile float converted_pressure_mmhg = pressure_mmhg;
+}
+void CalibrateSensor() {
+    // Perform this at atmospheric pressure
+    Calibration_value = ConvertPressureToMMHg(calculated_pressure);
 }
 
 float ConvertPressureToMMHg(float pressure_psi) {
@@ -898,8 +902,8 @@ void StartPressureTask(void *argument)
 
     	// Convert calculated pressure to display scale
         //	scaled_pressure = ScalePressureForDisplay(calculated_pressure);  // Scale for display range
-    	//pressure_mmhg = ConvertPressureToMMHg(calculated_pressure); // Convert to mmHg
-    	scaled_pressure = ScalePressureForDisplay(pressure_mmhg); // Scale for graph display
+    	pressure_mmhg = ConvertPressureToMMHg(calculated_pressure); // Convert to mmHg
+    //	scaled_pressure = ScalePressureForDisplay(pressure_mmhg); // Scale for graph display
 
 
        // Optional: Reset buffer if it gets stuck

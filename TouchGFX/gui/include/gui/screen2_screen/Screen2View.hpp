@@ -10,6 +10,11 @@
 #define SCALE_FACTOR 8
 #define GRAPH_MAX_PIXEL 700
 
+// Declare variables with C linkage
+extern "C" {
+    extern float pressure_mmhg;
+    extern uint16_t scaled_pressure;
+}
 class Screen2View : public Screen2ViewBase
 {
 public:
@@ -31,7 +36,7 @@ public:
 private:
         int tickCounter;    // Tracks the update interval, control how often to insert into the graph
         int lastIndex;
-        float pressure_mmhg;
+       // float pressure_mmhg;
 protected:
          void updateInfoWidgetPosition();
 };

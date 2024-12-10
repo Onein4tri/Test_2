@@ -4,7 +4,7 @@
 
 #include <stdint.h>  // for uint16_t
 #include<math.h>
-
+#include <main.h>
 #include "../../../../STM32CubeIDE/Application/User/Core/PressureSensor.hpp"
 #include <texts/TextKeysAndLanguages.hpp>
 
@@ -22,6 +22,7 @@ void Screen2View::setupScreen()
 {
     Screen2ViewBase::setupScreen();
     sineGraph.clear();                   // Clear the graph initially
+ //   tickCounter = 0;   // Reset the tick counter
 
 }
 
@@ -32,9 +33,29 @@ void Screen2View::tearDownScreen()
 
 void Screen2View::updatePressureGraph()
 {
-	  //sineGraph.addDataPoint(static_cast<int>(pressure_mmhg)- SCALE_FACTOR);y
-	int y_position = -1*pressure_mmhg; //100 - ((pressure_mmhg - (-200)) / (200 - (-200))) * 200; // Assuming mmHg range is -200 to 200
+
+	int y_position = static_cast<int>(pressure_mmhg);
+	if (y_position > 700)
+	    y_position = 700;
+	else if (y_position < -50)
+	    y_position = -50;
+
 	sineGraph.addDataPoint(y_position );
+
+	 // Reverse sign to match graph display convention
+//	 int y_position = static_cast<int>(-1.0f * pressure_mmhg);
+
+	volatile int debug_y_position = y_position;
+
+//	static int angle = 0;
+//
+//	    // Generate a sine wave value for testing
+//	    int y_position = static_cast<int>(350 + 350 * sin(angle * M_PI / 180));
+//
+//	    sineGraph.addDataPoint(y_position);
+//
+//	    // Increment angle for next value
+//	    angle = (angle + 10) % 360;;
 
 }
 
