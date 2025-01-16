@@ -72,6 +72,7 @@ osThreadId_t defaultTaskHandle;
 #define P_MAX 25           // Maximum pressure in psi (change as needed)
 #define P_MIN 0           // Minimum pressure in psi (change as needed)
 
+#define PRESSURE_THRESHOLD 250.0f  // threshold in mmHg
 
 #define GRAPH_MAX_PIXEL 700   // Display y-axis range (0-100 pixels)
 
@@ -749,6 +750,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+  /* Initialize the LED to OFF */
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : VSYNC_FREQ_Pin */
   GPIO_InitStruct.Pin = VSYNC_FREQ_Pin;
@@ -898,12 +901,27 @@ void StartPressureTask(void *argument)
 
     	ConvertToPressure(pressure);  // Convert raw data to psi
         // Update the circular buffer with new pressure value
+
+    	// Control LED
+    	if (pressure_mmhg >= PRESSURE_THRESHOLD)
+    	{
+    		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, GPIO_PIN_SET);  // Turn LED ON
+    		 volatile float debug_pressure = pressure_mmhg;
+    	}
+    	else
+    	{
+    		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, GPIO_PIN_RESET);  // Turn LED OFF
+
+    	}
+
+
+
         UpdatePressureBuffer(calculated_pressure);
 
     	// Convert calculated pressure to display scale
         //	scaled_pressure = ScalePressureForDisplay(calculated_pressure);  // Scale for display range
     	pressure_mmhg = ConvertPressureToMMHg(calculated_pressure); // Convert to mmHg
-    //	scaled_pressure = ScalePressureForDisplay(pressure_mmhg); // Scale for graph display
+    	//	scaled_pressure = ScalePressureForDisplay(pressure_mmhg); // Scale for graph display
 
 
        // Optional: Reset buffer if it gets stuck

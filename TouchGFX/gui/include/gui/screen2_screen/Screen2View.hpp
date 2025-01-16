@@ -10,6 +10,7 @@
 #define SCALE_FACTOR 8
 #define GRAPH_MAX_PIXEL 700
 
+
 // Declare variables with C linkage
 extern "C" {
     extern float pressure_mmhg;

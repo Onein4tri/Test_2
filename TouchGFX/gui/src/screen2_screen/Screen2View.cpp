@@ -63,60 +63,7 @@ void Screen2View::updatePressureGraph()
 
 }
 
-//void Screen2View::handleTickEvent()
-//{
-//	static TickType_t startTime = 0;
-//	TickType_t currentTime = xTaskGetTickCount();  // Get the current tick count
-//
-//	// Initialize startTime on the first run
-//	if (startTime == 0)
-//	{
-//		startTime = currentTime;  // Set start time to the current tick count
-//	}
-//	// Calculate elapsed time in seconds
-//	TickType_t elapsedTicks = currentTime - startTime;
-//	float elapsedTime = (float)elapsedTicks / configTICK_RATE_HZ;  // Convert ticks to seconds
-//
-//
-//    if (tickCounter % 2 == 0)  // Adjust frequency of update as needed, each 2:nd time insert into the graph
-//    {
-//    	updatePressureGraph();
-//    	 volatile float debugElapsedTime = elapsedTime;  // Can view in debugger
-//    	 volatile int debug_y_position = elapsedTicks;
-//    }
-//    tickCounter++;
-//}
 
-//void Screen2View::handleTickEvent()
-//{
-//    static TickType_t startTime = 0; // Tracks when the graph started
-//    static float nextGraphUpdateTime = 0.0f; // Tracks the next time to update the graph
-//
-//    // Get the current tick count from FreeRTOS
-//    TickType_t currentTime = xTaskGetTickCount();
-//
-//    // Initialize startTime on the first call
-//    if (startTime == 0)
-//    {
-//        startTime = currentTime;
-//    }
-//
-//    // Calculate elapsed time in seconds
-//    TickType_t elapsedTicks = currentTime - startTime;
-//    float elapsedTime = (float)elapsedTicks / configTICK_RATE_HZ;
-//
-//    // Update the graph at 1-second intervals
-//    if (elapsedTime >= nextGraphUpdateTime)
-//    {
-//        nextGraphUpdateTime += 1.0f; // Schedule the next update at the next second
-//        updatePressureGraph(); // Call the function to update the graph
-//    }
-//
-//    // Optional: Debugging variable for elapsed time
-//    volatile float debugElapsedTime = elapsedTime; // Check this in the debugger
-//    volatile int debug_y_position = elapsedTicks;
-//    tickCounter++; // Increment the tick counter
-//}
 
 void Screen2View::handleTickEvent()
 {
