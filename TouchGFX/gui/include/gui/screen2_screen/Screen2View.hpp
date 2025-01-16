@@ -13,7 +13,7 @@
 // Declare variables with C linkage
 extern "C" {
     extern float pressure_mmhg;
-    extern uint16_t scaled_pressure;
+
 }
 class Screen2View : public Screen2ViewBase
 {

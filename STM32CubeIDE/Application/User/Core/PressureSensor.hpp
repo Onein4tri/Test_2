@@ -14,9 +14,6 @@
 
 #include <stdint.h>
 
-//extern float pressure_mmhg;    // Holds the converted mmHg value
-extern uint16_t scaled_pressure; // Holds the y-axis value for the graph
-
 
 #ifdef __cplusplus
 extern "C" {
@@ -25,7 +22,7 @@ extern "C" {
 void ReadPressureData(void);
 float ConvertPressureToMMHg(float pressure_psi);
 extern float pressure_mmhg;
-//int mmHgToYAxis(float pressure_mmhg, float mmHg_min, float mmHg_max);
+extern uint16_t scaled_pressure; // Holds the y-axis value for the graph
 
 #ifdef __cplusplus
 }
